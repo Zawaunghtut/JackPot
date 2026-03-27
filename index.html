@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Zah KP | ဂျက်ပေါက် အချီကြီး တွက်စက် ✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 20% 30%, #0a0f1e, #03050b);
+            font-family: 'Segoe UI', 'Pyidaungsu', 'Poppins', system-ui, -apple-system, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            position: relative;
+        }
+
+        /* လှပသော နောက်ခံ အလင်းတန်း */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" opacity="0.2"><path fill="%23ffd700" d="M769 229L1037 260.9 827 378.8 770 609.7 546 555.3 401 700.4 267.8 545 101 452.1 240.1 280.6 119 149.3 294.7 108.4 438.5 30.7 543 119.6 769 229z"/></svg>') no-repeat center;
+            background-size: 600px;
+            pointer-events: none;
+            opacity: 0.12;
+        }
+
+        /* main card */
+        .jackpot-card {
+            max-width: 620px;
+            width: 100%;
+            background: rgba(18, 22, 35, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 56px;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 215, 0, 0.1) inset, 0 0 20px rgba(255, 215, 0, 0.2);
+            padding: 28px 24px 32px;
+            transition: all 0.3s ease;
+        }
+
+        /* header */
+        .gold-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .gold-header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #FFE6A3, #FFB347, #DAA520);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-weight: 800;
+        }
+        .gold-header p {
+            color: #bbbca8;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            border-top: 1px dashed rgba(255,215,0,0.3);
+            display: inline-block;
+            padding-top: 6px;
+        }
+
+        /* form styling */
+        .input-group {
+            margin-bottom: 24px;
+        }
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #FFE7B0;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+        }
+        .input-label i {
+            font-size: 1.2rem;
+        }
+        select, input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1.5px solid rgba(255, 215, 0, 0.5);
+            border-radius: 44px;
+            padding: 14px 20px;
+            font-size: 1rem;
+            color: #f5e7c8;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(4px);
+        }
+        select option {
+            background: #151e2c;
+            color: #ffeaac;
+        }
+        input:focus, select:focus {
+            border-color: #ffcd4a;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+            background: rgba(0,0,0,0.7);
+        }
+        .row-2col {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .row-2col .col {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        /* button magic */
+        .btn-jackpot {
+            background: linear-gradient(95deg, #f0b429 0%, #ffd966 50%, #e6a017 100%);
+            border: none;
+            width: 100%;
+            padding: 16px 12px;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: #1e1a0c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,245,170,0.6) inset;
+            margin: 8px 0 12px;
+        }
+        .btn-jackpot:hover {
+            transform: scale(1.02);
+            background: linear-gradient(95deg, #ffc244, #ffdf8c, #ffbb33);
+            box-shadow: 0 12px 28px rgba(255, 200, 0, 0.4);
+            letter-spacing: 0.5px;
+        }
+        .btn-jackpot:active {
+            transform: scale(0.98);
+        }
+
+        /* result panel */
+        .result-panel {
+            margin-top: 32px;
+            background: rgba(10, 14, 23, 0.7);
+            border-radius: 44px;
+            padding: 20px 20px;
+            border: 1px solid rgba(255, 200, 80, 0.4);
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .jackpot-status {
+            text-align: center;
+            font-size: 1.75rem;
+            font-weight: 900;
+            padding: 10px 0 8px;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #FFE2A4, #FFB347);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 3px rgba(0,0,0,0.2);
+        }
+        .score-container {
+            background: #00000040;
+            border-radius: 60px;
+            padding: 12px 16px;
+            margin: 12px 0 8px;
+            text-align: center;
+        }
+        .score-bar-bg {
+            background: #2a2a2e;
+            border-radius: 30px;
+            height: 12px;
+            width: 100%;
+            margin: 8px 0 5px;
+            overflow: hidden;
+        }
+        .score-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #f5b042, #ffdd77);
+            border-radius: 30px;
+            transition: width 0.6s ease-out;
+            box-shadow: 0 0 6px #ffbf40;
+        }
+        .score-text {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #ffda99;
+        }
+
+        /* grid info */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .info-card {
+            background: #0f1322cc;
+            border-radius: 28px;
+            padding: 12px 12px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: 0.2s;
+        }
+        .info-card small {
+            font-size: 0.7rem;
+            color: #bbaa77;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .info-card .value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 6px;
+            color: #ffdd99;
+            word-break: break-word;
+        }
+        .glow-gold {
+            border-color: #ffd966;
+            background: radial-gradient(circle at 30% 20%, #1f1b2e, #0c0f1a);
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #7b735a;
+            margin-top: 28px;
+            border-top: 1px solid rgba(255, 200, 100, 0.2);
+            padding-top: 18px;
+        }
+        @keyframes subtlePulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4);}
+            100% { box-shadow: 0 0 0 12px rgba(255, 215, 0, 0);}
+        }
+        .jackpot-bling {
+            animation: subtlePulse 1s infinite;
+        }
+        @media (max-width: 500px) {
+            .jackpot-card { padding: 20px 18px; }
+            .info-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="jackpot-card">
+    <div class="gold-header">
+        <h1>✨ ZAH KP ဂျက်ပေါက် ✨</h1>
+        <p>ဘုတ္တိ • ဝိဘုတ္တိ • ရာသီခွင် KP နည်းကျ</p>
+    </div>
+
+    <div class="input-group">
+        <div class="input-label">
+            <span>♈︎ ရာသီခွင် (Sign)</span>
+        </div>
+        <select id="sign">
+            <option value="1">မိဿ (Aries)</option>
+            <option value="2" selected>ပြိဿ (Taurus)</option>
+            <option value="3">မေထုန် (Gemini)</option>
+            <option value="4">ကရကဋ် (Cancer)</option>
+            <option value="5">သိဟ် (Leo)</option>
+            <option value="6">ကန် (Virgo)</option>
+            <option value="7">တူ (Libra)</option>
+            <option value="8">ဗြိစ္ဆာ (Scorpio)</option>
+            <option value="9">ဓနု (Sagittarius)</option>
+            <option value="10">မကာရ (Capricorn)</option>
+            <option value="11">ကုမ် (Aquarius)</option>
+            <option value="12">မိန် (Pisces)</option>
+        </select>
+    </div>
+
+    <div class="row-2col">
+        <div class="col">
+            <div class="input-label">📐 ဒီဂရီ (0° - 29°)</div>
+            <input type="number" id="deg" value="16" min="0" max="29" step="1">
+        </div>
+        <div class="col">
+            <div class="input-label">⏱️ မိနစ် (0' - 59')</div>
+            <input type="number" id="min" value="30" min="0" max="59" step="1">
+        </div>
+    </div>
+
+    <button class="btn-jackpot" onclick="checkJackpot()">
+        🎰 အချီကြီး ပွပေါက် စစ်ဆေးရန် 🎲
+    </button>
+
+    <div id="res" class="result-panel" style="display: none;">
+        <div id="jpText" class="jackpot-status">✨ ရလဒ် ✨</div>
+        <div class="score-container">
+            <div class="score-text" id="score">အောင်မြင်မှု အချိုး: --%</div>
+            <div class="score-bar-bg"><div class="score-fill" id="scoreFill"></div></div>
+        </div>
+        
+        <div class="info-grid" id="infoGrid">
+            <div class="info-card"><small>🌟 နက္ခတ် (Nakshatra)</small><div class="value" id="nakshatraName">--</div></div>
+            <div class="info-card"><small>⭐ ကြယ်သခင် (Star Lord)</small><div class="value" id="star">--</div></div>
+            <div class="info-card"><small>🪐 ဘုတ္တိ (Bhukti)</small><div class="value" id="bhukti">--</div></div>
+            <div class="info-card"><small>🌀 ဝိဘုတ္တိ (Vibhukti)</small><div class="value" id="vibhukti">--</div></div>
+            <div class="info-card"><small>🏆 ၈ တန့်သခင် (8th Lord)</small><div class="value" id="l8">--</div></div>
+        </div>
+    </div>
+    
+    <div class="footer-note">
+        © 2026 Zah KP ပညာ • ဆရာထွတ် (မေတ္တာဖြင့်) — KP နက္ခတ် + ဘုတ္တိ အနုမာန
+    </div>
+</div>
+
+<script>
+    // ======================= KP အတွက် တည်ဆောက်ထားသော ဇယားများ =======================
+    const planets = ["Ketu", "Venus", "Sun", "Moon", "Mars", "Rahu", "Jupiter", "Saturn", "Mercury"];
+    // ၂၇ နက္ခတ် အမည်များ (မြန်မာပါ)
+    const naksList = [
+        "အဿဝဏီ", "ဘရဏီ", "ကြတ္တိကာ", "ရောဟဏီ", "မြိဂသီရ", "အာဒြာ", "ပုန်ရသူ", "ပုသျ", "အသလိဿာ",
+        "မဃ", "ပုဗ္ဗဖလဂုဏီ", "ဥတ္တရဖလဂုဏီ", "ဟတ္ထ", "စိတြာ", "သွါတီ", "ဝိသာခါ", "အနုရာဓ", "ဇေယ္ဌာ",
+        "မူလ", "ပုဗ္ဗာသဠ်", "ဥတ္တရာသဠ်", "သြာဏ", "ဓနိဌာ", "သတဘိသျ", "ပုဗ္ဗဘဒြ", "ဥတ္တရဘဒြ", "ြေရဝတီ"
+    ];
+    // ၈ တန့်သခင် mapping (ရာသီ ၁-၁၂)
+    const lords8 = [null, "Mars", "Jupiter", "Saturn", "Saturn", "Jupiter", "Mars", "Venus", "Mercury", "Moon", "Sun", "Mercury", "Venus"];
+
+    // validation & main function
+    function checkJackpot() {
+        // 1. get values & sanitize
+        let signVal = parseInt(document.getElementById('sign').value, 10);
+        let degVal = parseFloat(document.getElementById('deg').value);
+        let minVal = parseFloat(document.getElementById('min').value);
+        
+        if (isNaN(degVal)) degVal = 0;
+        if (isNaN(minVal)) minVal = 0;
+        degVal = Math.min(29, Math.max(0, degVal));
+        minVal = Math.min(59, Math.max(0, minVal));
+        
+        // total degree from 0° Aries (reference)
+        const totalDeg = ((signVal - 1) * 30) + (degVal + minVal / 60);
+        
+        // --------------------------------------------------
+        // 1) နက္ခတ် အမှတ် (၂၇ ခု) အတွက် ပြရန်
+        const nakshatraIndex = Math.floor((totalDeg % 360) / (360 / 27));
+        const actualNakshatra = naksList[nakshatraIndex % 27];
+        
+        // 2) Star lord (KP သုံး ဂဏန်း - မူရင်း Logic အတိုင်း)
+        const starIdx = Math.floor(totalDeg / (360 / 27)) % 9;
+        const starLord = planets[starIdx];
+        
+        // 3) Bhukti (ဘုတ္တိ) index based on sub lord partition 1.48°
+        const subDivision = 360 / 27;   // 13.3333°
+        const remainderInStar = totalDeg % subDivision;
+        const bhuktiIdx = Math.floor(remainderInStar / 1.48) % 9;
+        const bhuktiLord = planets[bhuktiIdx];
+        
+        // 4) Vibhukti (ဝိဘုတ္တိ) 0.16° per segment
+        const vibhuktiIdx = Math.floor((totalDeg % 1.48) / 0.16) % 9;
+        const vibhuktiLord = planets[vibhuktiIdx];
+        
+        // 5) 8th house lord from sign
+        const lord8 = lords8[signVal];
+        
+        // ---------- ဂျက်ပေါက် အမှတ် (score / ကံဇာတာ) ----------
+        let points = 35;   // base
+        
+        // 8th lord Jupiter ဖြစ်လျှင် ကြီးမားသော အကျိုး
+        if (lord8 === "Jupiter") points += 30;
+        
+        // ကြယ်သခင် သို့မဟုတ် ဘုတ္တိတွင် Jupiter ရှိလျှင် အားကောင်း
+        if (starLord === "Jupiter" || bhuktiLord === "Jupiter") points += 20;
+        
+        // ပြိဿ (Taurus) သို့မဟုတ် ကရကဋ် (Cancer) ရာသီများသည် ဥစ္စာရာသီ
+        if (signVal === 2 || signVal === 4) points += 15;
+        
+        // အမှတ် 100 ထက်မပိုစေရန်
+        points = Math.min(100, Math.max(0, points));
+        
+        // Jackpot ခွဲခြား စာသား
+        let jackpotTitle = "";
+        let specialEffect = false;
+        if (points >= 80) {
+            jackpotTitle = "🎰🎉 အချီကြီး ပွပေါက် (JACKPOT!) 🎉🎰";
+            specialEffect = true;
+        } else if (points >= 60) {
+            jackpotTitle = "💰 လာဘ်ကြီး ရနိုင်သည် — ရွှေလမ်းဖွင့် 💰";
+            specialEffect = false;
+        } else {
+            jackpotTitle = "🎲 ပုံမှန် ကံဇာတာ • ဆက်လက်ယှဉ်ပြိုင်ပါ 🎲";
+            specialEffect = false;
+        }
+        
+        // ---- UI အပိုင်းကို update လုပ်ခြင်း ----
+        const resultDiv = document.getElementById('res');
+        resultDiv.style.display = 'block';
+        
+        // Jackpot text style
+        const jpDiv = document.getElementById('jpText');
+        jpDiv.innerText = jackpotTitle;
+        if (specialEffect) {
+            jpDiv.style.background = "linear-gradient(135deg, #FFD966, #FFA500)";
+            jpDiv.style.webkitBackgroundClip = "text";
+            jpDiv.style.backgroundClip = "text";
+            jpDiv.style.color = "transparent";
+            jpDiv.style.fontSize = "1.9rem";
+            resultDiv.classList.add("jackpot-bling");
+        } else {
+            jpDiv.style.background = "linear-gradient(135deg, #FFE2A4, #FFB347)";
+            jpDiv.style.webkitBackgroundClip = "text";
+            jpDiv.style.backgroundClip = "text";
+            jpDiv.style.color = "transparent";
+            jpDiv.style.fontSize = "1.75rem";
+            resultDiv.classList.remove("jackpot-bling");
+        }
+        
+        // score text & progress bar
+        const scoreSpan = document.getElementById('score');
+        scoreSpan.innerHTML = `🏆 အောင်မြင်နိုင်ခြေ : ${points}% 🏆`;
+        const fillBar = document.getElementById('scoreFill');
+        fillBar.style.width = `${points}%`;
+        
+        // Fill additional info
+        document.getElementById('nakshatraName').innerHTML = `${actualNakshatra} (${nakshatraIndex+1}/27)`;
+        document.getElementById('star').innerHTML = starLord;
+        document.getElementById('bhukti').innerHTML = bhuktiLord;
+        document.getElementById('vibhukti').innerHTML = vibhuktiLord;
+        document.getElementById('l8').innerHTML = lord8;
+        
+        // နောက်ထပ် ကြွယ်ဝအောင် : အကယ်၍ points >=70 ဆိုလျှင် info-card များကို gold border shimmer
+        const allInfoCards = document.querySelectorAll('.info-card');
+        if (points >= 70) {
+            allInfoCards.forEach(card => {
+                card.style.border = "1px solid #ffcf4a";
+                card.style.boxShadow = "0 0 6px rgba(255,200,0,0.6)";
+            });
+        } else {
+            allInfoCards.forEach(card => {
+                card.style.border = "1px solid rgba(255, 215, 0, 0.3)";
+                card.style.boxShadow = "none";
+            });
+        }
+        
+        // Bonus: additional spark effect (visual)
+        const jackpotCard = document.querySelector('.jackpot-card');
+        if (points >= 90) {
+            jackpotCard.style.border = "1px solid #ffd966";
+            jackpotCard.style.boxShadow = "0 0 22px rgba(255,200,0,0.5), 0 20px 35px -12px black";
+        } else {
+            jackpotCard.style.border = "1px solid rgba(255, 215, 0, 0.4)";
+            jackpotCard.style.boxShadow = "0 25px 45px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 215, 0, 0.1) inset";
+        }
+        
+        // optional: animate the fill bar again
+        fillBar.style.transition = "width 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1)";
+        
+        // Show ဘုတ္တိ / ဝိဘုတ္တိ တို့၏ အနက် (cosmetic)
+        addBhuktiHint(starLord, bhuktiLord, vibhuktiLord);
+    }
+    
+    // small helper to add stylish tooltip/hint (just for vibe)
+    function addBhuktiHint(star, bhukti, vibhukti) {
+        // we can embed extra subtle description in console or innerText but we do dynamic micro effect
+        const bhuktiEl = document.getElementById('bhukti');
+        const vibhuktiEl = document.getElementById('vibhukti');
+        // Optional: set small attribute title
+        if (bhukti === "Jupiter") bhuktiEl.setAttribute("title", "ကြီးပွားရေး ဘုတ္တိ - လာဘ်လာဘ တိုးပွား");
+        else if (bhukti === "Venus") bhuktiEl.setAttribute("title", "ချမ်းသာမှု၊ ဇိမ်ခံ ဘုတ္တိ");
+        else if (bhukti === "Saturn") bhuktiEl.setAttribute("title", "ဇွဲ၊ စိန်ခေါ်မှု ဘုတ္တိ");
+        else bhuktiEl.setAttribute("title", "KP ဘုတ္တိ သက်ရောက်မှု");
+        
+        if (vibhukti === "Jupiter") vibhuktiEl.setAttribute("title", "ဝိဘုတ္တိ Jupiter — အခွင့်အလမ်း");
+        else if (vibhukti === "Mars") vibhuktiEl.setAttribute("title", "ဝိဘုတ္တိ Mars — ရဲစွမ်းသတ္တိ");
+        else vibhuktiEl.setAttribute("title", "ဝိဘုတ္တိ စွမ်းအင်");
+    }
+    
+    // extra init: set default values for min, deg if weird
+    window.addEventListener('DOMContentLoaded', () => {
+        const degInput = document.getElementById('deg');
+        const minInput = document.getElementById('min');
+        if (degInput.value === "" || degInput.value < 0) degInput.value = 16;
+        if (minInput.value === "" || minInput.value < 0) minInput.value = 30;
+        // add placeholder animations
+        const btn = document.querySelector('.btn-jackpot');
+        btn.addEventListener('click', (e) => {
+            // ripple effect (small)
+            let ripple = document.createElement('span');
+            ripple.classList.add('ripple-temp');
+            ripple.style.position = 'absolute';
+            ripple.style.borderRadius = '50%';
+            ripple.style.backgroundColor = 'rgba(255,215,0,0.4)';
+            ripple.style.width = '20px';
+            ripple.style.height = '20px';
+            ripple.style.pointerEvents = 'none';
+            ripple.style.transform = 'scale(1)';
+            ripple.style.transition = 'all 0.5s';
+            const rect = btn.getBoundingClientRect();
+            ripple.style.left = `${e.clientX - rect.left - 10}px`;
+            ripple.style.top = `${e.clientY - rect.top - 10}px`;
+            btn.style.position = 'relative';
+            btn.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 400);
+        });
+        
+        // make sure that deg/min inputs don't exceed limits
+        degInput.addEventListener('change', () => {
+            let v = parseFloat(degInput.value);
+            if (v > 29) degInput.value = 29;
+            if (v < 0) degInput.value = 0;
+        });
+        minInput.addEventListener('change', () => {
+            let v = parseFloat(minInput.value);
+            if (v > 59) minInput.value = 59;
+            if (v < 0) minInput.value = 0;
+        });
+    });
+    
+    // manually attach same check for safety
+    window.checkJackpot = checkJackpot;
+</script>
+</body>
+</html>
